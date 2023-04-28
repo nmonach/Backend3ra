@@ -15,8 +15,8 @@ app.use(express.urlencoded({extended:true}));
 const productManager = new ProductManager('./products.json');//instanciamos la clase para tener acceso los metodos que tenemos en la clase ProductManager
 
 app.get('/products', async(req, res) => {
-    try {
         const {limit} = req.query
+    try {
         const products = await productManager.getAllProducts(parseInt(limit));
         res.status(200).json(products);
     } catch (error) {

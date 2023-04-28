@@ -14,17 +14,19 @@ export default class ProductManager{
         return maxId;
     }
 
-    async getAllProducts(){
+    async getAllProducts(limit){
         try {
             if(fs.existsSync(this.path)){
                 const products = await fs.promises.readFile(this.path, 'utf-8');
                 const productsJSON = JSON.parse(products);
-                return productsJSON; 
+                if (limit) {
+                    return productsJSON.slice(0, limit);
+                } else {
+                    return productsJSON;
+                }
             } else {
                 return []
-            }
-            
-        } catch (error) {
+            } }catch (error) {
             console.log(error);
         }
     }
